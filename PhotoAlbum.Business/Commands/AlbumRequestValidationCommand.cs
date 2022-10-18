@@ -5,7 +5,6 @@ namespace PhotoAlbum.Business.Commands
 {
     public class AlbumRequestValidationCommand : IExecute <Album>
     {
-
         public AlbumRequestValidationCommand() {         
         }             
       

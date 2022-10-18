@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoAlbum.Run", "PhotoAlbum.Run\PhotoAlbum.Run.csproj", "{EE89290C-9A33-423E-901A-747538B3737D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoAlbum.Run", "PhotoAlbum.Run\PhotoAlbum.Run.csproj", "{EE89290C-9A33-423E-901A-747538B3737D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoAlbum.Business", "PhotoAlbum.Business\PhotoAlbum.Business.csproj", "{D704B9D0-18C4-431B-BAF8-1BE8776E34B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoAlbum.Business", "PhotoAlbum.Business\PhotoAlbum.Business.csproj", "{D704B9D0-18C4-431B-BAF8-1BE8776E34B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoAlbum.Tests", "PhotoAlbum.Tests\PhotoAlbum.Tests.csproj", "{8BE69305-187D-433B-9A86-53DA177B501E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoAlbum.Tests", "PhotoAlbum.Tests\PhotoAlbum.Tests.csproj", "{8BE69305-187D-433B-9A86-53DA177B501E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{704F89C8-6F54-497C-A2A0-57F52BB594D3}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
