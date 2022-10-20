@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using PhotoAlbum.Business.Interfaces;
-using PhotoAlbum.Business.Models;
-using System.Net;
+﻿using System.Net;
 
 namespace PhotoAlbum.Business.Service
 {
