@@ -3,11 +3,11 @@ using PhotoAlbum.Business.Interfaces;
 using PhotoAlbum.Business.Models;
 using System.Net;
 
-namespace PhotoAlbum.Business.Commands
-{   
-    public class AlbumApiGetCommand : IExecute<Album>
+namespace PhotoAlbum.Business.Service
+{
+    public class AlbumApiService
     {
-        public virtual Album Execute(Album album, string url)
+        public virtual string Get(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -19,13 +19,11 @@ namespace PhotoAlbum.Business.Commands
                 {
                     using (StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8))
                     {
-                        album.Images = JsonConvert.DeserializeObject<List<AlbumImage>>(reader.ReadToEnd());
-
-                        return album;
+                     return reader.ReadToEnd();
                     }
                 }
             }
-        }  
+        }
 
     }
 }

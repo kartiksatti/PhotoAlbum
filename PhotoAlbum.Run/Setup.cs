@@ -3,7 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PhotoAlbum.Business.Commands;
 using PhotoAlbum.Business;
 using Microsoft.Extensions.Configuration;
-using System;
+
+using PhotoAlbum.Business.Service;
 
 namespace PhotoAlbum.Run
 {
@@ -30,7 +31,7 @@ namespace PhotoAlbum.Run
              {
                  services.AddScoped<AlbumRequestValidationCommand>();
                  services.AddScoped<AlbumCommand>();
-                 services.AddScoped<AlbumApiGetCommand>();
+                 services.AddScoped<AlbumApiService>();
                  services.AddScoped<AlbumOrchestrator>();
              });
             return _hostBuilder;

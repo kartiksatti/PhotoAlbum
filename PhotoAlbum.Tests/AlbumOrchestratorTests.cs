@@ -2,25 +2,22 @@
 using PhotoAlbum.Business;
 using PhotoAlbum.Business.Commands;
 using PhotoAlbum.Business.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PhotoAlbum.Business.Service;
+
 
 namespace PhotoAlbum.Tests
 {
     public class AlbumOrchestratorTests
     {
-        Mock<AlbumApiGetCommand> _albumApiGetCommandMock;
+        Mock<AlbumApiService> _albumApiGetServiceMock;
         Mock<AlbumRequestValidationCommand> _albumRequestValidationCommandMock;
         Mock<AlbumCommand> _albumCommandMock;
 
         public AlbumOrchestratorTests()
         {
-            _albumApiGetCommandMock = new Mock<AlbumApiGetCommand>();
-         
-            _albumCommandMock = new Mock<AlbumCommand >(_albumApiGetCommandMock.Object);
+            _albumApiGetServiceMock = new Mock<AlbumApiService>();         
+            _albumCommandMock = new Mock<AlbumCommand >(_albumApiGetServiceMock.Object);
+            _albumRequestValidationCommandMock = new Mock<AlbumRequestValidationCommand>();
         }
 
 
@@ -31,7 +28,7 @@ namespace PhotoAlbum.Tests
                 StrId = "AA",
             };
             var url = "api";
-            _albumRequestValidationCommandMock = new Mock<AlbumRequestValidationCommand>();
+           
             _albumRequestValidationCommandMock.Setup(x => x.Execute(It.IsAny<Album>(), It.IsAny<string>())).Returns(new Album() {Message ="Some Error" });
             
             var orca = new AlbumOrchestrator(_albumRequestValidationCommandMock.Object, _albumCommandMock.Object);
@@ -44,7 +41,7 @@ namespace PhotoAlbum.Tests
         [Fact]
         public void AlbumOrchestrator_Should_Call_AlbumCommand_If_ValidationSucceeds()
         {
-            _albumRequestValidationCommandMock = new Mock<AlbumRequestValidationCommand>();
+          
             _albumRequestValidationCommandMock.Setup(x => x.Execute(It.IsAny<Album>(), It.IsAny<string>())).Returns(new Album() {Id= 1});
 
             var orca = new AlbumOrchestrator(_albumRequestValidationCommandMock.Object, _albumCommandMock.Object);
@@ -53,6 +50,24 @@ namespace PhotoAlbum.Tests
             _albumCommandMock.Verify(x => x.Execute(It.IsAny<Album>(), "" ), Times.Once);
 
         }
+
+        [Fact]
+        public void AlbumOrchestrator_Should_Fail_If_AlbumCallApi_Call_Fails()
+        {
+
+            var album = new Album { };
+            var error = "Some Error";
+            _albumApiGetServiceMock.Setup(x => x.Get("url")).Throws(new Exception(error));
+            _albumRequestValidationCommandMock.Setup(x => x.Execute(It.IsAny<Album>(), It.IsAny<string>())).Returns(new Album() { Id = 1 });
+
+            var orca = new AlbumOrchestrator(_albumRequestValidationCommandMock.Object,new AlbumCommand(_albumApiGetServiceMock.Object));
+
+            album = orca.Execute("1", "");
+
+            Assert.True(album.HasErrors);
+            Assert.True(album.Message.Contains("An unhandeled error occured"));
+        }
+
 
     }
 }
